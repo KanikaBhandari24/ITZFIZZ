@@ -9,10 +9,15 @@ const HeroSection = () => {
   const coverRef = useRef(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-    const container = containerRef.current;
+  const container = containerRef.current;
+
+  const setupAnimation = () => {
+    ScrollTrigger.getAll().forEach(t => t.kill());
+
     const containerWidth = container.clientWidth;
+    const cycleWidth = cycleRef.current.offsetWidth;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -22,15 +27,14 @@ const HeroSection = () => {
         scrub: true,
         pin: true,
         anticipatePin: 1,
-        invalidateOnRefresh: true, 
+        invalidateOnRefresh: true,
       },
     });
 
     tl.to(cycleRef.current, {
-      x: containerWidth - 250,
+      x: containerWidth - cycleWidth,
       ease: "none",
     })
-
       .to(
         coverRef.current,
         {
@@ -39,23 +43,26 @@ const HeroSection = () => {
         },
         0
       )
-
       .to(
         ".stat",
         {
           opacity: 1,
           y: -20,
-          stagger: 0.08, 
+          stagger: 0.08,
           duration: 0.3,
         },
         0.05
       );
+  };
 
-    return () => {
-      if (tl.scrollTrigger) tl.scrollTrigger.kill();
-      tl.kill();
-    };
-  }, []);
+  // Wait for everything to load (important for production)
+  window.addEventListener("load", setupAnimation);
+
+  return () => {
+    window.removeEventListener("load", setupAnimation);
+    ScrollTrigger.getAll().forEach(t => t.kill());
+  };
+}, []);
 
   return (
     <section
@@ -110,10 +117,11 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* 🚲 Cycle */}
+        {/*  Cycle */}
         <img
           ref={cycleRef}
           src={cycleImg}
+          loading="eager"
           className="absolute left-0 top-1/2 -translate-y-1/2 w-[420px] h-auto z-20"
           alt="cycle"
         />
