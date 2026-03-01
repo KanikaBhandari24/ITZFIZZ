@@ -32,7 +32,7 @@ const HeroSection = () => {
     });
 
     tl.to(cycleRef.current, {
-      x: containerWidth - cycleWidth,
+      x: containerWidth - 220,
       ease: "none",
     })
       .to(
