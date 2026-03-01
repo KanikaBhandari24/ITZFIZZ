@@ -60,9 +60,9 @@ const HeroSection = () => {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen bg-gray-50 overflow-hidden"
+      className="relative min-h-[100svh] bg-gray-50 overflow-hidden"
     >
-      <div className="relative w-full h-screen flex flex-col justify-between">
+      <div className="relative w-full min-h-[100svh] flex flex-col justify-between">
         {/* TOP STATS */}
         <div className="flex justify-start gap-10 px-16 pt-16">
           <div className="stat opacity-0 bg-purple-300 shadow-xl rounded-2xl px-8 py-6 text-center w-64 border border-purple-400 transition duration-300 hover:scale-105">
