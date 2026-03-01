@@ -122,7 +122,7 @@ const HeroSection = () => {
           ref={cycleRef}
           src={cycleImg}
           loading="eager"
-          className="absolute left-0 top-1/2 -translate-y-1/2 w-[420px] h-auto z-20"
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-[400px] h-auto z-20"
           alt="cycle"
         />
       </div>
